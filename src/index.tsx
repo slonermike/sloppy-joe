@@ -5,17 +5,19 @@ import { createStore } from "redux";
 import { StoreState } from './types';
 import { enthusiasm } from './reducers';
 
-import Hello from './containers/Hello';
 import { Provider } from 'react-redux';
+import { SiteAction } from './actions';
+import SiteHeader from './containers/SiteHeader';
+import Blog from './containers/Blog';
 
-const store = createStore<StoreState>(enthusiasm, {
-  enthusiasm: 1,
-  language: 'TypeScript'
+const store = createStore<StoreState, SiteAction, any, any>(enthusiasm, {
+  siteTitle: 'SloppyJoe'
 });
 
 ReactDOM.render(
   <Provider store={store}>
-    <Hello />
+    <SiteHeader />
+    <Blog />
   </Provider>,
   document.getElementById('root') as HTMLElement
 )
