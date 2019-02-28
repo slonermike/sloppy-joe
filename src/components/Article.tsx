@@ -3,8 +3,10 @@ import * as React from 'react';
 import './Article.css';
 
 export interface ArticleProps {
+    key: string;
     title: string;
     content?: string;
+    expanded: boolean;
 }
 
 function Article({title, content}: ArticleProps) {

@@ -3,22 +3,24 @@ import Blog, { BlogProps } from '../components/Blog';
 import { StoreState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { expandArticle, SiteAction } from 'src/actions';
+import { ArticleProps } from 'src/components/Article';
 
 export function mapStateToProps(state: StoreState): BlogProps {
+    let articles: ArticleProps[] = state.articles.map((articleState) => {
+        const { title, content, expanded, id } = articleState;
+        return { title, content, expanded, key: id };
+    });
+
     return {
-        articles: [
-            {
-                title: `${state.siteTitle}: Thing one`
-            },
-            {
-                title: `${state.siteTitle}: Thing two`
-            }
-        ]
+        articles: articles
     };
 }
 
-export function mapDispatchToProps(_dispatch: Dispatch<never>) {
-    return {};
+export function mapDispatchToProps(dispatch: Dispatch<SiteAction>) {
+    return {
+        onExpand: (articleId: string) => dispatch(expandArticle(articleId))
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);

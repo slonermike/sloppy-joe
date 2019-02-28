@@ -11,7 +11,8 @@ function Blog({ articles }: BlogProps) {
     return (
         <div className="blog">
             {articles.map((article) => {
-                return <Article title={article.title} content={article.content} />
+                // TODO: isn't there a cleaner way to pass this data along?  Why can't i just pass 'article'?
+                return <Article title={article.title} content={article.content} expanded={article.expanded} key={article.key} />
             })}
         </div>
     );
