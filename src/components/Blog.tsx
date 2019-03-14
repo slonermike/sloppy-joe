@@ -1,19 +1,18 @@
 import * as React from 'react';
 
 import './Article.css';
-import Article, { ArticleProps } from './Article';
+import Article from 'src/containers/Article';
 
 export interface BlogProps {
-    articles: ArticleProps[];
+    articles: string[];
     onExpand: (id: string) => void;
 }
 
 function Blog({ articles }: BlogProps) {
     return (
         <div className="blog">
-            {articles.map((article) => {
-                // TODO: isn't there a cleaner way to pass this data along?  Why can't i just pass 'article'?
-                return <Article title={article.title} content={article.content} expanded={article.expanded} key={article.key} />
+            {articles.map((articleId: string) => {
+                return <Article id={articleId} key={articleId} />
             })}
         </div>
     );

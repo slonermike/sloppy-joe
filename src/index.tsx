@@ -17,12 +17,19 @@ const initialState: StoreState = {
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
 store.dispatch(initializeArticleMetadata());
-fetchArticle(store.getState, store.dispatch, 0);
+
+// Fetch the articles with a delay between.
+const articles = store.getState().articles;
+for (let index = 0; index < articles.length; index++) {
+    setTimeout(() => {
+        fetchArticle(store.getState, store.dispatch, index);
+    }, index * 2000);
+}
 
 ReactDOM.render(
-  <Provider store={store}>
-    <SiteHeader />
-    <Blog />
-  </Provider>,
-  document.getElementById('root') as HTMLElement
+    <Provider store={store}>
+        <SiteHeader />
+        <Blog />
+    </Provider>,
+    document.getElementById('root') as HTMLElement
 )

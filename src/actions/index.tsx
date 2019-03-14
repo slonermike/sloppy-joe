@@ -1,6 +1,7 @@
 import * as constants from '../constants';
 import { StoreState } from 'src/types';
 import { Dispatch } from 'react';
+import { sanitize } from 'dompurify';
 
 export type SiteAction = ExpandArticle |
                          RequestInitialMetadata |
@@ -43,6 +44,7 @@ export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<Site
     // TODO: set article in loading state.
     return fetch(url)
         .then((response) => response.text())
+        .then((text) => sanitize(text))
         .then((text) => dispatch(updateArticleContent(articleId, text)));
 }
 
