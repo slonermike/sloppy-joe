@@ -6,7 +6,7 @@ import { Dispatch } from 'redux';
 import { expandArticle, SiteAction } from 'src/actions';
 import { ArticleProps } from 'src/components/Article';
 
-export function mapStateToProps(state: StoreState): BlogProps {
+export function mapStateToProps(state: StoreState): Partial<BlogProps> {
     let articles: ArticleProps[] = state.articles.map((articleState) => {
         const { title, content, expanded, id } = articleState;
         return { title, content, expanded, key: id };
@@ -17,7 +17,7 @@ export function mapStateToProps(state: StoreState): BlogProps {
     };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<SiteAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): Partial<BlogProps> {
     return {
         onExpand: (articleId: string) => dispatch(expandArticle(articleId))
     };

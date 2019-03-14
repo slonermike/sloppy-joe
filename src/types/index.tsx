@@ -17,6 +17,7 @@ export interface BlogMetadata {
 export interface ArticleState {
     id: string;
     title: string;
+    file: string;
     content?: string;
     expanded: boolean;
 }

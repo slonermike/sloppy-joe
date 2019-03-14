@@ -5,6 +5,7 @@ import Article, { ArticleProps } from './Article';
 
 export interface BlogProps {
     articles: ArticleProps[];
+    onExpand: (id: string) => void;
 }
 
 function Blog({ articles }: BlogProps) {

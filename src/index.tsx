@@ -6,7 +6,7 @@ import { StoreState } from './types';
 import { siteReducer } from './reducers';
 
 import { Provider } from 'react-redux';
-import { SiteAction, initializeArticleMetadata } from './actions';
+import { SiteAction, initializeArticleMetadata, fetchArticle } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 
@@ -17,6 +17,7 @@ const initialState: StoreState = {
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
 store.dispatch(initializeArticleMetadata());
+fetchArticle(store.getState, store.dispatch, 0);
 
 ReactDOM.render(
   <Provider store={store}>
