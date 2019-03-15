@@ -5,12 +5,10 @@ import { EXPAND_ARTICLE, INITIALIZE_ARTICLE_METADATA, UPDATE_ARTICLE_CONTENT } f
 const ARTICLE_FOLDER = './content/';
 
 function getArticle(state: StoreState, id: string): ArticleState | null {
-    // TODO: put these in a better indexed set, rather than searching.
     return state.articles[id] || null;
 }
 
 function addArticle(state: StoreState, article: ArticleMetadata) {
-    // TODO: update the existing article if it's present.
     const id = article.file;
     state.articles[article.file] = {
         id,
