@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './SiteHeader.css';
+import './SiteHeader.scss';
 
 export interface SiteHeaderProps {
     siteTitle: string;

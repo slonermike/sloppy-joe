@@ -1,6 +1,4 @@
 import * as React from 'react';
-
-import './Article.css';
 import Article from 'src/containers/Article';
 
 export interface BlogProps {

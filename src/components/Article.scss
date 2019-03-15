@@ -1,0 +1,23 @@
+.article {
+    margin-bottom: 50px;
+
+    .title {
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .content {
+        font-size: 18px;
+        overflow: hidden;
+
+        &:not(.expanded) {
+            height: 200px;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+    }
+
+    .expand {
+        font-weight: bold;
+    }
+}

@@ -4,13 +4,14 @@
   "private": true,
   "dependencies": {
     "@types/dompurify": "0.0.32",
-    "@types/react-redux": "^7.0.1",
+    "@types/react-redux": "^7.0.3",
     "cross-fetch": "^3.0.1",
     "dompurify": "^1.0.10",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
-    "react-scripts-ts": "3.1.0",
+    "react-scripts-ts": "4.0.8",
     "redux": "^4.0.1"
   },
   "scripts": {
@@ -20,10 +21,16 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.6",
-    "@types/node": "^11.9.5",
-    "@types/react": "^16.8.4",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.11.3",
+    "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
     "typescript": "^3.3.3333"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
