@@ -38,14 +38,13 @@ export interface UpdateArticleContent {
     content: string;
 }
 
-export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<SiteAction>, index: number): Promise<void> {
-    const url = getState().articles[index].file;
-    const articleId = getState().articles[index].id;
+export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<SiteAction>, id: string): Promise<void> {
+    const url = getState().articles[id].file;
     // TODO: set article in loading state.
     return fetch(url)
         .then((response) => response.text())
         .then((text) => sanitize(text))
-        .then((text) => dispatch(updateArticleContent(articleId, text)));
+        .then((text) => dispatch(updateArticleContent(id, text)));
 }
 
 /**

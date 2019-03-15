@@ -1,13 +1,12 @@
 import Article, { ArticleProps } from '../components/Article';
 
-import { StoreState, ArticleState } from '../types';
+import { StoreState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { expandArticle, SiteAction } from 'src/actions';
 
 export function mapStateToProps(state: StoreState, ownProps: {id: string}): Partial<ArticleProps> {
-    // TODO: fixme.  Index by ID, not order.
-    const articleState = state.articles.find((article: ArticleState) => (article.id === ownProps.id));
+    const articleState = state.articles[ownProps.id];
 
     if ( articleState ) {
         const { title, content, expanded } = articleState;

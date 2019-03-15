@@ -12,17 +12,18 @@ import Blog from './containers/Blog';
 
 const initialState: StoreState = {
     siteTitle: 'SloppyJoe',
-    articles: []
+    articles: {},
+    articleOrder: []
 }
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
 store.dispatch(initializeArticleMetadata());
 
 // Fetch the articles with a delay between.
-const articles = store.getState().articles;
-for (let index = 0; index < articles.length; index++) {
+const articleOrder = store.getState().articleOrder;
+for (let index = 0; index < articleOrder.length; index++) {
     setTimeout(() => {
-        fetchArticle(store.getState, store.dispatch, index);
+        fetchArticle(store.getState, store.dispatch, articleOrder[index]);
     }, index * 2000);
 }
 

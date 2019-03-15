@@ -6,17 +6,19 @@ const ARTICLE_FOLDER = './content/';
 
 function getArticle(state: StoreState, id: string): ArticleState | null {
     // TODO: put these in a better indexed set, rather than searching.
-    return state.articles.find((article) => article.id === id) || null;
+    return state.articles[id] || null;
 }
 
 function addArticle(state: StoreState, article: ArticleMetadata) {
     // TODO: update the existing article if it's present.
-    state.articles.push({
-        id: article.file,
+    const id = article.file;
+    state.articles[article.file] = {
+        id,
         title: article.title,
         file: `${ARTICLE_FOLDER}${article.file}`,
         expanded: false
-    });
+    };
+    state.articleOrder.push(id);
 }
 
 function getArticleByIndex(state: StoreState, index: number) {

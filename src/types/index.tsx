@@ -23,6 +23,7 @@ export interface ArticleState {
 }
 
 export interface StoreState {
-    articles: ArticleState[];
+    articles: Record<string, ArticleState>;
+    articleOrder: string[];
     siteTitle: string;
 }

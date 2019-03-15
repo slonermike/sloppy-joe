@@ -7,9 +7,7 @@ import { expandArticle, SiteAction } from 'src/actions';
 
 export function mapStateToProps(state: StoreState): Partial<BlogProps> {
     return {
-        articles: state.articles.map((articleState) => {
-            return articleState.id;
-        })
+        articles: state.articleOrder
     };
 }
 
