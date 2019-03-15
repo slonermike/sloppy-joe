@@ -9,11 +9,14 @@ import { Provider } from 'react-redux';
 import { SiteAction, initializeArticleMetadata, fetchArticle } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
+import TagList from './containers/TagList';
 
 const initialState: StoreState = {
     siteTitle: 'SloppyJoe',
     articles: {},
-    articleOrder: []
+    articleOrder: [],
+    tags: {},
+    focusedTag: null
 }
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
@@ -30,6 +33,7 @@ for (let index = 0; index < articleOrder.length; index++) {
 ReactDOM.render(
     <Provider store={store}>
         <SiteHeader />
+        <TagList />
         <Blog />
     </Provider>,
     document.getElementById('root') as HTMLElement

@@ -1,6 +1,6 @@
 import { SiteAction } from '../actions';
 import { StoreState, BlogMetadata, ArticleMetadata, ArticleState } from '../types';
-import { EXPAND_ARTICLE, INITIALIZE_ARTICLE_METADATA, UPDATE_ARTICLE_CONTENT } from '../constants';
+import { EXPAND_ARTICLE, INITIALIZE_ARTICLE_METADATA, UPDATE_ARTICLE_CONTENT, FOCUS_TAG } from '../constants';
 
 const ARTICLE_FOLDER = './content/';
 
@@ -17,6 +17,10 @@ function addArticle(state: StoreState, article: ArticleMetadata) {
         expanded: false
     };
     state.articleOrder.push(id);
+    article.tags.map((tagName: string) => {
+        state.tags[tagName] = state.tags[tagName] || [];
+        state.tags[tagName].push(id);
+    });
 }
 
 function getArticleByIndex(state: StoreState, index: number) {
@@ -70,6 +74,12 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 return newState;
             } else {
                 break;
+            }
+        }
+        case FOCUS_TAG: {
+            return {
+                ...state,
+                focusedTag: action.tag
             }
         }
         default: break;

@@ -6,3 +6,6 @@ export type EXPAND_ARTICLE = typeof EXPAND_ARTICLE;
 
 export const UPDATE_ARTICLE_CONTENT = 'UPDATE_ARTICLE_CONTENT';
 export type UPDATE_ARTICLE_CONTENT = typeof UPDATE_ARTICLE_CONTENT;
+
+export const FOCUS_TAG = 'FOCUS_TAG';
+export type FOCUS_TAG = typeof FOCUS_TAG;

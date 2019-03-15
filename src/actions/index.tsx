@@ -5,7 +5,28 @@ import { sanitize } from 'dompurify';
 
 export type SiteAction = ExpandArticle |
                          RequestInitialMetadata |
-                         UpdateArticleContent;
+                         UpdateArticleContent |
+                         FocusTag;
+/**
+ * Filter content to only include stuff associated with the specified tag.
+ * @param tag Name of the tag to filter to. Null to clear focus.
+ */
+export function focusTag(tag: string | null): FocusTag {
+    return {
+        type: constants.FOCUS_TAG,
+        tag
+    };
+}
+export function clearTagFocus(): FocusTag {
+    return {
+        type: constants.FOCUS_TAG,
+        tag: null
+    };
+}
+export interface FocusTag {
+    type: constants.FOCUS_TAG,
+    tag: string | null
+}
 
 /**
  * Retrieves the base metadata for the articles.

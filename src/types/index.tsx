@@ -23,7 +23,18 @@ export interface ArticleState {
 }
 
 export interface StoreState {
+    // Raw article data indexed by ID.
     articles: Record<string, ArticleState>;
+
+    // List of article IDs in order as they should appear.
     articleOrder: string[];
+
+    // Subsets of ordered article IDs, indexed by tag.
+    tags: Record<string, string[]>;
+
+    // Name of the site.
     siteTitle: string;
+
+    // Currently-selected tag (null to show all)
+    focusedTag: string | null;
 }
