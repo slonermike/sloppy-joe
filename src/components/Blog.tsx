@@ -1,10 +1,15 @@
 import * as React from 'react';
 import Article from 'src/containers/Article';
 
-export interface BlogProps {
+export interface BlogValueProps {
     articles: string[];
+}
+
+export interface BlogDispatchProps {
     onExpand: (id: string) => void;
 }
+
+export type BlogProps = BlogValueProps & BlogDispatchProps;
 
 function Blog({ articles }: BlogProps) {
     return (

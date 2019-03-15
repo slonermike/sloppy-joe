@@ -7,6 +7,7 @@
 - Break out reducers via `combineReducers`
 - Custom header, footer HTML.  Remove generic site header.
   - Maybe there can be a generic `global` tag where that HTML block is applied to every page, always.
+- Mark out space for unloaded article so visibility of all items can be calculated before anything loads.
 
 # Possible Improvements
 - Implement async stuff w/ redux-thunk

@@ -1,17 +1,17 @@
-import Blog, { BlogProps } from '../components/Blog';
+import Blog, { BlogValueProps, BlogDispatchProps } from '../components/Blog';
 
 import { StoreState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { expandArticle, SiteAction } from 'src/actions';
 
-export function mapStateToProps(state: StoreState): Partial<BlogProps> {
+export function mapStateToProps(state: StoreState): BlogValueProps {
     return {
         articles: state.articleOrder
     };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): Partial<BlogProps> {
+export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): Partial<BlogDispatchProps> {
     return {
         onExpand: (articleId: string) => dispatch(expandArticle(articleId))
     };
