@@ -1,4 +1,4 @@
-import TagList, { TagListValueProps, TagListDispatchProps } from '../components/TagList';
+import TagList, { TagListValueProps, TagListDispatchProps, TagProps } from '../components/TagList';
 import { StoreState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -6,7 +6,14 @@ import { SiteAction, focusTag } from 'src/actions';
 
 export function mapStateToProps(state: StoreState): TagListValueProps {
     return {
-        tags: Object.keys(state.tags)
+        tags: Object.keys(state.tags).map((tagName) => {
+            return {
+                name: tagName,
+                count: state.tags[tagName].length
+            } as TagProps;
+        }).sort((a, b) => {
+            return b.count - a.count;
+        })
     };
 }
 

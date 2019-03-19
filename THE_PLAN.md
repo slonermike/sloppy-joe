@@ -34,3 +34,5 @@ First release.
 - Articles can be expanded to read the whole thing.
 - Page title renders.
 - Filter content by tag.
+- Display the number of appearances of a tag.
+- Order the displayed tags by appearance count.

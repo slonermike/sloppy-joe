@@ -2,8 +2,13 @@ import * as React from 'react';
 
 import TagSelector from './TagSelector';
 
+export interface TagProps {
+    name: string,
+    count: number
+};
+
 export interface TagListValueProps {
-    tags: string[];
+    tags: TagProps[];
 }
 
 export interface TagListDispatchProps {
@@ -15,14 +20,14 @@ export type TagListProps = TagListValueProps & TagListDispatchProps;
 function TagList({ tags, toggleTag }: TagListProps) {
     return (
         <div className="tag-list">
+            <TagSelector key={'all'} tag={'All'} toggleTag={() => toggleTag(null)} />
             {
-                tags.map((tagName: string) => {
+                tags.map((tag: TagProps) => {
 
-                    const toggleThisTag = () => toggleTag(tagName);
-                    return <TagSelector key={tagName} tag={tagName} toggleTag={toggleThisTag} />
+                    const toggleThisTag = () => toggleTag(tag.name);
+                    return <TagSelector key={tag.name} tag={tag.name} count={tag.count} toggleTag={toggleThisTag} />
                 })
             }
-            <TagSelector key={'all'} tag={'All'} toggleTag={() => toggleTag(null)} />
         </div>
     );
 }
