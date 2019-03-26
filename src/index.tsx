@@ -6,7 +6,7 @@ import { StoreState } from './types';
 import { siteReducer } from './reducers';
 
 import { Provider } from 'react-redux';
-import { SiteAction, initializeArticleMetadata, fetchArticle } from './actions';
+import { SiteAction, fetchContent } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 import TagList from './containers/TagList';
@@ -20,15 +20,7 @@ const initialState: StoreState = {
 }
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
-store.dispatch(initializeArticleMetadata());
-
-// Fetch the articles with a delay between.
-const articleOrder = store.getState().articleOrder;
-for (let index = 0; index < articleOrder.length; index++) {
-    setTimeout(() => {
-        fetchArticle(store.getState, store.dispatch, articleOrder[index]);
-    }, index * 2000);
-}
+fetchContent(store.getState, store.dispatch);
 
 ReactDOM.render(
     <Provider store={store}>

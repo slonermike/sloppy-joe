@@ -1,12 +1,12 @@
 import * as constants from '../constants';
-import { StoreState } from 'src/types';
+import { StoreState, SiteMetadata } from 'src/types';
 import { Dispatch } from 'react';
 import { sanitize } from 'dompurify';
 
 export type SiteAction = ExpandArticle |
-                         RequestInitialMetadata |
                          UpdateArticleContent |
-                         FocusTag;
+                         FocusTag |
+                         UpdateSite;
 /**
  * Filter content to only include stuff associated with the specified tag.
  * @param tag Name of the tag to filter to. Null to clear focus.
@@ -29,18 +29,6 @@ export interface FocusTag {
 }
 
 /**
- * Retrieves the base metadata for the articles.
- */
-export function initializeArticleMetadata(): RequestInitialMetadata {
-    return {
-        type: constants.INITIALIZE_ARTICLE_METADATA
-    };
-}
-export interface RequestInitialMetadata {
-    type: constants.INITIALIZE_ARTICLE_METADATA;
-}
-
-/**
  * Update the content for an article.
  *
  * @param articleId ID of the article being updated.
@@ -59,6 +47,21 @@ export interface UpdateArticleContent {
     content: string;
 }
 
+/**
+ * Update the site from the top level.
+ * @param metadata Metadata to apply to the site.
+ */
+export function setSiteContent(metadata: SiteMetadata): UpdateSite {
+    return {
+        type: constants.UPDATE_SITE,
+        metadata
+    }
+}
+export interface UpdateSite {
+    type: constants.UPDATE_SITE,
+    metadata: SiteMetadata
+};
+
 export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<SiteAction>, id: string): Promise<void> {
     const url = getState().articles[id].file;
     // TODO: set article in loading state.
@@ -66,6 +69,13 @@ export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<Site
         .then((response) => response.text())
         .then((text) => sanitize(text))
         .then((text) => dispatch(updateArticleContent(id, text)));
+}
+
+export function fetchContent(getState: () => StoreState, dispatch: Dispatch<SiteAction>): Promise<void> {
+    const sourceFile = './content/content.json';
+    return fetch(sourceFile)
+    .then((response) => response.json())
+    .then((site) => dispatch(setSiteContent(site as SiteMetadata)));
 }
 
 /**
