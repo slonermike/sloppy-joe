@@ -62,8 +62,7 @@ export interface UpdateSite {
     metadata: SiteMetadata
 };
 
-export function fetchArticle(getState: () => StoreState, dispatch: Dispatch<SiteAction>, id: string): Promise<void> {
-    const url = getState().articles[id].file;
+export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: string): Promise<void> {
     // TODO: set article in loading state.
     return fetch(url)
         .then((response) => response.text())
