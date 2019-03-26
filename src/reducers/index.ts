@@ -1,6 +1,6 @@
 import { SiteAction } from '../actions';
-import { StoreState, BlogMetadata, ArticleMetadata, ArticleState } from '../types';
-import { EXPAND_ARTICLE, INITIALIZE_ARTICLE_METADATA, UPDATE_ARTICLE_CONTENT, FOCUS_TAG } from '../constants';
+import { StoreState, ArticleMetadata, ArticleState } from '../types';
+import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE } from '../constants';
 
 const ARTICLE_FOLDER = './content/';
 
@@ -9,8 +9,8 @@ function getArticle(state: StoreState, id: string): ArticleState | null {
 }
 
 function addArticle(state: StoreState, article: ArticleMetadata) {
-    const id = article.file;
-    state.articles[article.file] = {
+    const id = article.keyName;
+    state.articles[id] = {
         id,
         title: article.title,
         file: `${ARTICLE_FOLDER}${article.file}`,
@@ -29,15 +29,19 @@ function getArticleByIndex(state: StoreState, index: number) {
 
 export function siteReducer(state: StoreState, action: SiteAction): StoreState {
     switch (action.type) {
-        case INITIALIZE_ARTICLE_METADATA: {
-            // Retrieve our article metadata.
-            const rawMetadata = require('../content.json') as BlogMetadata;
+        case UPDATE_SITE: {
+            const data = action.metadata;
             const newState = {
                 ...state
             };
-            for (const article of rawMetadata.entries) {
-                addArticle(newState, article);
-            }
+
+            // TODO: get these sorted into the right sections
+            // in the right order.
+            Object.keys(data.entries).forEach((key) => {
+                const entry = data.entries[key];
+                addArticle(newState, entry);
+            });
+
             return newState;
         }
         case EXPAND_ARTICLE: {

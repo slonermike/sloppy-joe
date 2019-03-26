@@ -1,20 +1,28 @@
-import Article, { ArticleProps } from '../components/Article';
+import Article, { ArticleValues, ArticleDispatch } from '../components/Article';
 
 import { StoreState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { expandArticle, SiteAction } from 'src/actions';
+import { expandArticle, SiteAction, fetchArticle } from 'src/actions';
 
-export function mapStateToProps(state: StoreState, ownProps: {id: string}): Partial<ArticleProps> {
+export function mapStateToProps(state: StoreState, ownProps: {id: string}): ArticleValues {
     const articleState = state.articles[ownProps.id];
 
     if ( articleState ) {
-        const { title, content, expanded } = articleState;
+        const { file, id, title, content, expanded } = articleState;
         return {
-            title, content, expanded
+            id,
+            title,
+            content,
+            expanded,
+            key: id,
+            url: file
         };
     } else {
         return {
+            url: null,
+            id: ownProps.id,
+            key: ownProps.id,
             title: 'Error',
             content: `Unable to load content: ${ownProps.id}`,
             expanded: false
@@ -22,9 +30,10 @@ export function mapStateToProps(state: StoreState, ownProps: {id: string}): Part
     }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): Partial<ArticleProps> {
+export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): ArticleDispatch {
     return {
-        expandArticle: (articleId: string) => dispatch(expandArticle(articleId))
+        expandArticle: (articleId: string) => dispatch(expandArticle(articleId)),
+        loadContent: (articleId: string, url: string) => fetchArticle(dispatch, articleId, url)
     };
 }
 

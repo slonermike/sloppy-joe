@@ -3,15 +3,22 @@
  */
 export interface ArticleMetadata {
     file: string;
+    keyName: string;
     tags: string[];
     title: string;
+    date: Date;
 }
 
 /**
  * Blog metadata as it comes down from the raw JSON.
  */
-export interface BlogMetadata {
-    entries: ArticleMetadata[];
+export interface SectionMetadata {
+    entries: string[];
+}
+
+export interface SiteMetadata {
+    sections: Record<string, SectionMetadata>;
+    entries: Record<string, ArticleMetadata>;
 }
 
 export interface ArticleState {

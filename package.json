@@ -1,6 +1,6 @@
 {
   "name": "sloppy-joe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@types/dompurify": "0.0.32",
