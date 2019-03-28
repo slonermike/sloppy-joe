@@ -6,7 +6,8 @@ import { sanitize } from 'dompurify';
 export type SiteAction = ExpandArticle |
                          UpdateArticleContent |
                          FocusTag |
-                         UpdateSite;
+                         UpdateSite |
+                         SelectSection;
 /**
  * Filter content to only include stuff associated with the specified tag.
  * @param tag Name of the tag to filter to. Null to clear focus.
@@ -39,7 +40,7 @@ export function updateArticleContent(articleId: string, content: string): Update
         type: constants.UPDATE_ARTICLE_CONTENT,
         articleId,
         content
-    }
+    };
 }
 export interface UpdateArticleContent {
     type: constants.UPDATE_ARTICLE_CONTENT;
@@ -55,11 +56,22 @@ export function setSiteContent(metadata: SiteMetadata): UpdateSite {
     return {
         type: constants.UPDATE_SITE,
         metadata
-    }
+    };
 }
 export interface UpdateSite {
     type: constants.UPDATE_SITE,
     metadata: SiteMetadata
+};
+
+export function selectSection(id: string): SelectSection {
+    return{
+        type: constants.SELECT_SECTION,
+        id
+    };
+}
+export interface SelectSection {
+    type: constants.SELECT_SECTION,
+    id: string
 };
 
 export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: string): Promise<void> {

@@ -18,20 +18,29 @@ export interface ArticleDispatch {
 
 export type ArticleProps = ArticleValues & ArticleDispatch;
 
-function Article({id, expandArticle, loadContent, url, title, content, expanded }: ArticleProps) {
-    const contentStyles = ['content'];
-    expanded && contentStyles.push('expanded');
+class Article extends React.Component<ArticleProps> {
+    // TODO: check this on more distinct articles.  Does it update the content when we change filters?
+    public componentDidMount() {
+        if (!this.props.content && this.props.url) {
+            this.props.loadContent(this.props.id, this.props.url);
+        }
+    }
 
-    const nodes = (
-        <div className="article">
-            <div className="title">{ title }</div>
-            { content && <div className={contentStyles.join(' ')} dangerouslySetInnerHTML={{ __html: content }}></div> }
-            { content && !expanded && <button className="expand" onClick={() => expandArticle(id)}>Expand</button> }
-            { !content && url && <button className="expand" onClick={() => loadContent(id, url)}>Load Content</button> }
-        </div>
-    );
+    public render() {
+        const {id, expandArticle, title, content, expanded } = this.props;
+        const contentStyles = ['content'];
+        expanded && contentStyles.push('expanded');
 
-    return nodes;
+        const nodes = (
+            <div className="article">
+                <div className="title">{ title }</div>
+                { content && <div className={contentStyles.join(' ')} dangerouslySetInnerHTML={{ __html: content }}></div> }
+                { content && !expanded && <button className="expand" onClick={() => expandArticle(id)}>Expand</button> }
+            </div>
+        );
+
+        return nodes;
+    }
 }
 
 export default Article;
