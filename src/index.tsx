@@ -10,13 +10,16 @@ import { SiteAction, fetchContent } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 import TagList from './containers/TagList';
+import SectionList from './containers/SectionList';
 
 const initialState: StoreState = {
-    siteTitle: 'SloppyJoe',
+    siteTitle: 'Site Title',
     articles: {},
+    sections: {},
     articleOrder: [],
-    tags: {},
-    focusedTag: null
+    focusedTag: null,
+    selectedSection: null,
+    defaultSection: ''
 }
 
 const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
@@ -25,6 +28,7 @@ fetchContent(store.getState, store.dispatch);
 ReactDOM.render(
     <Provider store={store}>
         <SiteHeader />
+        <SectionList />
         <TagList />
         <Blog />
     </Provider>,

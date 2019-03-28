@@ -5,15 +5,19 @@ import { Dispatch } from 'redux';
 import { SiteAction, focusTag } from 'src/actions';
 
 export function mapStateToProps(state: StoreState): TagListValueProps {
-    return {
-        tags: Object.keys(state.tags).map((tagName) => {
-            return {
-                name: tagName,
-                count: state.tags[tagName].length
-            } as TagProps;
-        }).sort((a, b) => {
+    const visibleSection = state.sections[state.selectedSection || state.defaultSection];
+    const tags = visibleSection ? Object.keys(visibleSection.tags).map((tagName) => {
+        return {
+            name: tagName,
+            count: visibleSection.tags[tagName].length
+        } as TagProps
+    }).sort((a, b) => {
             return b.count - a.count;
-        })
+        }
+    ) : [];
+
+    return {
+        tags
     };
 }
 

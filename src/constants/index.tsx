@@ -9,3 +9,6 @@ export type UPDATE_SITE = typeof UPDATE_SITE;
 
 export const FOCUS_TAG = 'FOCUS_TAG';
 export type FOCUS_TAG = typeof FOCUS_TAG;
+
+export const SELECT_SECTION = 'SELECT_SECTION';
+export type SELECT_SECTION = typeof SELECT_SECTION;

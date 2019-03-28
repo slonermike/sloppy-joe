@@ -1,14 +1,14 @@
 # Planned Improvements
 - Dynamically load CSS as a theme (perhaps specified in lunchlady).
+  - https://stackoverflow.com/questions/28386125/dynamically-load-a-stylesheet-with-react
 - Automatically page in articles as you scroll. (infinite scrolling)
-- Display featured tags as global navigation.
-  -  Tag used in global navigation can point to a single article and present as 'page', rather than a set of articles.
 - Break out reducers via `combineReducers`
 - Custom header, footer HTML.  Remove generic site header.
   - Maybe there can be a generic `global` tag where that HTML block is applied to every page, always.
 - Mark out space for unloaded article so visibility of all items can be calculated before anything loads.
 - Linting
 - Ability to have multiple tags toggled on.
+- Indicate which tags are toggled.
 
 # Possible Improvements
 - Implement async stuff w/ redux-thunk
@@ -25,6 +25,14 @@
 - In the render for TagList, the 'All' filter uses 'all' as its key.  There is a risk of key collision here.
 
 # Releases
+
+## v0.2.0
+Splitting the site into multiple sections.
+
+### Features
+- Site now is split into multiple sections (blogs) which each have their own content.
+- Choosing a section filters to the content in that section.
+- Site title will reflect the selected section.
 
 ## v0.1.0
 First release.

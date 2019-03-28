@@ -1,14 +1,35 @@
 import Blog, { BlogValueProps, BlogDispatchProps } from '../components/Blog';
 
-import { StoreState } from '../types';
+import { StoreState, SectionState } from '../types';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { SiteAction } from 'src/actions';
 
+function filterArticles(state: StoreState, section: SectionState): string[] {
+    if (!section) {
+        return [];
+    } else if (!state.focusedTag || !section.tags[state.focusedTag]) {
+        return section.articles;
+    } else {
+        return section.tags[state.focusedTag];
+    }
+}
+
 export function mapStateToProps(state: StoreState): BlogValueProps {
-    return {
-        articles: state.focusedTag ? state.tags[state.focusedTag] : state.articleOrder
-    };
+    const sectionId = state.selectedSection || state.defaultSection;
+    const section = state.sections[sectionId];
+
+    if (section) {
+        return {
+            title: section.title,
+            articles: filterArticles(state, section)
+        };
+    } else {
+        return {
+            title: '',
+            articles: []
+        }
+    }
 }
 
 export function mapDispatchToProps(_dispatch: Dispatch<SiteAction>): BlogDispatchProps {

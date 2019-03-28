@@ -1,6 +1,6 @@
 import { SiteAction } from '../actions';
-import { StoreState, ArticleMetadata, ArticleState } from '../types';
-import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE } from '../constants';
+import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
+import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION } from '../constants';
 
 const ARTICLE_FOLDER = './content/';
 
@@ -17,10 +17,24 @@ function addArticle(state: StoreState, article: ArticleMetadata) {
         expanded: false
     };
     state.articleOrder.push(id);
-    article.tags.map((tagName: string) => {
-        state.tags[tagName] = state.tags[tagName] || [];
-        state.tags[tagName].push(id);
-    });
+}
+
+function addSection(state: StoreState, section: SectionMetadata, rawArticles: Record<string, ArticleMetadata>) {
+    const sectionTags = section.entries.reduce<Record<string, string[]>>((acc, entryId) => {
+        const entry = rawArticles[entryId];
+        entry.tags.forEach((tag) => {
+            const tagData = acc[tag] = acc[tag] || [] as string[];
+            tagData.push(entryId);
+        });
+        return acc;
+    }, {});
+
+    state.sections[section.keyName] = {
+        id: section.keyName,
+        title: section.name,
+        articles: [ ...section.entries ],
+        tags: sectionTags
+    }
 }
 
 function getArticleByIndex(state: StoreState, index: number) {
@@ -35,12 +49,33 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 ...state
             };
 
-            // TODO: get these sorted into the right sections
-            // in the right order.
             Object.keys(data.entries).forEach((key) => {
                 const entry = data.entries[key];
                 addArticle(newState, entry);
             });
+
+            Object.keys(data.sections).forEach((key) => {
+                const section = data.sections[key];
+                addSection(newState, section, data.entries);
+
+                // TODO: actually have some meaningful order to the default section.
+                newState.defaultSection = newState.defaultSection || key;
+            });
+
+            return newState;
+        }
+        case SELECT_SECTION: {
+            if (action.id === state.selectedSection) {
+                return state;
+            } else if (!state.sections[action.id]) {
+                console.log(`Error: No section of id \'${action.id}\' available.`);
+                return state;
+            }
+
+            const newState = {
+                ...state,
+                selectedSection: action.id
+            };
 
             return newState;
         }
