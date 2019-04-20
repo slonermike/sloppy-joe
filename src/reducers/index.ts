@@ -1,6 +1,6 @@
 import { SiteAction } from '../actions';
 import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
-import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION } from '../constants';
+import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML } from '../constants';
 
 const ARTICLE_FOLDER = './content/';
 
@@ -62,6 +62,11 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 newState.defaultSection = newState.defaultSection || key;
             });
 
+            newState.siteDivs = data.divs.reduce<Record<string, string | null>>((acc, url) => {
+                acc[`${ARTICLE_FOLDER}${url}`] = null;
+                return acc;
+            }, {} as Record<string, string | null>);
+
             return newState;
         }
         case SELECT_SECTION: {
@@ -114,6 +119,16 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
             } else {
                 break;
             }
+        }
+        case APPLY_SITE_LEVEL_HTML: {
+            const newState = {
+                ...state,
+                siteDivs: {...state.siteDivs}
+            };
+
+            newState.siteDivs[action.url] = action.html;
+
+            return newState;
         }
         case FOCUS_TAG: {
             return {
