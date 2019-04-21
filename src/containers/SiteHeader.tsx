@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { fetchDiv, SiteAction } from 'src/actions';
 
-export function mapStateToProps( { siteTitle, siteDivs }: StoreState): SiteHeaderData {
+export function mapStateToProps( { siteTitle, siteDivs, siteCss }: StoreState): SiteHeaderData {
     return {
         siteTitle,
-        siteDivs
+        siteDivs,
+        siteCss
     };
 }
 
