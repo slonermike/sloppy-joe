@@ -10,7 +10,7 @@ export interface ArticleMetadata {
 }
 
 /**
- * Blog metadata as it comes down from the raw JSON.
+ * Section metadata as it comes down from the raw JSON.
  */
 export interface SectionMetadata {
     name: string;
@@ -18,9 +18,14 @@ export interface SectionMetadata {
     entries: string[];
 }
 
+/**
+ * Site metadata as it comes down from the raw JSON.
+ */
 export interface SiteMetadata {
     sections: Record<string, SectionMetadata>;
     entries: Record<string, ArticleMetadata>;
+    divs: string[];
+    css: string[];
 }
 
 export interface ArticleState {
@@ -61,4 +66,10 @@ export interface StoreState {
 
     // Section to show when none is selected.
     defaultSection: string;
+
+    // Divs to show at the top level, indexed by url, with html as the data.
+    siteDivs: Record<string, string | null>;
+
+    // CSS files to apply at the top level.
+    siteCss: string[];
 }

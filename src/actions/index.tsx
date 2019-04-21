@@ -7,7 +7,9 @@ export type SiteAction = ExpandArticle |
                          UpdateArticleContent |
                          FocusTag |
                          UpdateSite |
-                         SelectSection;
+                         SelectSection |
+                         ApplySiteLevelHtml |
+                         ApplySiteLevelCss;
 /**
  * Filter content to only include stuff associated with the specified tag.
  * @param tag Name of the tag to filter to. Null to clear focus.
@@ -48,6 +50,30 @@ export interface UpdateArticleContent {
     content: string;
 }
 
+export function applySiteLevelCss(url: string): ApplySiteLevelCss {
+    return {
+        type: constants.APPLY_SITE_LEVEL_CSS,
+        url
+    };
+}
+export interface ApplySiteLevelCss {
+    type: constants.APPLY_SITE_LEVEL_CSS,
+    url: string
+}
+
+export function applySiteLevelHtml(url: string, html: string): ApplySiteLevelHtml {
+    return {
+        type: constants.APPLY_SITE_LEVEL_HTML,
+        html,
+        url
+    };
+}
+export interface ApplySiteLevelHtml {
+    type: constants.APPLY_SITE_LEVEL_HTML,
+    html: string,
+    url: string
+}
+
 /**
  * Update the site from the top level.
  * @param metadata Metadata to apply to the site.
@@ -80,6 +106,13 @@ export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: st
         .then((response) => response.text())
         .then((text) => sanitize(text))
         .then((text) => dispatch(updateArticleContent(id, text)));
+}
+
+export function fetchDiv(dispatch: Dispatch<SiteAction>, url: string): Promise<void> {
+    return fetch(url)
+        .then((response) => response.text())
+        .then((html) => sanitize(html))
+        .then((text) => dispatch(applySiteLevelHtml(url, text)));
 }
 
 export function fetchContent(getState: () => StoreState, dispatch: Dispatch<SiteAction>): Promise<void> {

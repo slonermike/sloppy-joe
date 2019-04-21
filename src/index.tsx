@@ -17,6 +17,8 @@ const initialState: StoreState = {
     articles: {},
     sections: {},
     articleOrder: [],
+    siteDivs: {},
+    siteCss: [],
     focusedTag: null,
     selectedSection: null,
     defaultSection: ''
