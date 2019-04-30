@@ -9,6 +9,7 @@ export interface ArticleValues {
     content?: string;
     expanded: boolean;
     url: string | null;
+    date: Date;
 }
 
 export interface ArticleDispatch {
@@ -27,13 +28,18 @@ class Article extends React.Component<ArticleProps> {
     }
 
     public render() {
-        const {id, expandArticle, title, content, expanded } = this.props;
+        const {id, expandArticle, title, content, expanded, date} = this.props;
         const contentStyles = ['content'];
         expanded && contentStyles.push('expanded');
 
         const nodes = (
             <div className="article">
                 <div className="title">{ title }</div>
+                <div className="date">{ date.toLocaleDateString("en-US", {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) }</div>
                 { content && <div className={contentStyles.join(' ')} dangerouslySetInnerHTML={{ __html: content }}></div> }
                 { content && !expanded && <button className="expand" onClick={() => expandArticle(id)}>Expand</button> }
             </div>

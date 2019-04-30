@@ -6,7 +6,7 @@ export interface ArticleMetadata {
     keyName: string;
     tags: string[];
     title: string;
-    date: Date;
+    date: string;
 }
 
 /**
@@ -34,6 +34,7 @@ export interface ArticleState {
     file: string;
     content?: string;
     expanded: boolean;
+    date: Date;
 }
 
 export interface SectionState {
