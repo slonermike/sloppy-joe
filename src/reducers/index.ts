@@ -14,7 +14,8 @@ function addArticle(state: StoreState, article: ArticleMetadata) {
         id,
         title: article.title,
         file: `${ARTICLE_FOLDER}${article.file}`,
-        expanded: false
+        expanded: false,
+        date: new Date(article.date)
     };
     state.articleOrder.push(id);
 }

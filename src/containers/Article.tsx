@@ -9,10 +9,11 @@ export function mapStateToProps(state: StoreState, ownProps: {id: string}): Arti
     const articleState = state.articles[ownProps.id];
 
     if ( articleState ) {
-        const { file, id, title, content, expanded } = articleState;
+        const { file, id, title, content, expanded, date } = articleState;
         return {
             id,
             title,
+            date,
             content,
             expanded,
             key: id,
@@ -24,6 +25,7 @@ export function mapStateToProps(state: StoreState, ownProps: {id: string}): Arti
             id: ownProps.id,
             key: ownProps.id,
             title: 'Error',
+            date: new Date(),
             content: `Unable to load content: ${ownProps.id}`,
             expanded: false
         };

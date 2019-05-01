@@ -30,7 +30,7 @@ class SiteHeader extends React.Component<SiteHeaderProps> {
 
         return (
             <div className="header">
-                { this.props.siteCss.map(url => <link rel="stylesheet" type="text/css" href={ url }></link>) }
+                { this.props.siteCss.map(url => <link key={ url } rel="stylesheet" type="text/css" href={ url }></link>) }
                 { allCustomHTML && <div className='custom-html' dangerouslySetInnerHTML={{ __html: allCustomHTML }}></div> }
                 <div className="site-title">{ this.props.siteTitle }</div>
             </div>
