@@ -48,6 +48,9 @@ export interface SectionState {
 }
 
 export interface StoreState {
+    /** True if the initial response has come back. */
+    hasPopulated: boolean;
+
     // Raw article data indexed by ID.
     articles: Record<string, ArticleState>;
 

@@ -71,6 +71,8 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 return acc;
             }, {} as Record<string, string | null>);
 
+            newState.hasPopulated = true;
+
             return newState;
         }
         case SELECT_SECTION: {

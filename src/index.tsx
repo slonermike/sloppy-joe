@@ -14,6 +14,7 @@ import SectionList from './containers/SectionList';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const initialState: StoreState = {
+    hasPopulated: false,
     siteTitle: '',
     articles: {},
     sections: {},
@@ -30,7 +31,7 @@ fetchContent(centralStore.getState, centralStore.dispatch);
 
 function fetchContentUnlessPresent(): Promise<void> {
     return new Promise((resolve, _reject) => {
-        if (centralStore.getState().siteTitle) {
+        if (centralStore.getState().hasPopulated) {
             resolve();
         } else {
             fetchContent(centralStore.getState, centralStore.dispatch)
