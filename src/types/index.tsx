@@ -22,6 +22,7 @@ export interface SectionMetadata {
  * Site metadata as it comes down from the raw JSON.
  */
 export interface SiteMetadata {
+    siteTitle: string;
     sections: Record<string, SectionMetadata>;
     entries: Record<string, ArticleMetadata>;
     divs: string[];

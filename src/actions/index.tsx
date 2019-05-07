@@ -116,10 +116,11 @@ export function fetchDiv(dispatch: Dispatch<SiteAction>, url: string): Promise<v
 }
 
 export function fetchContent(getState: () => StoreState, dispatch: Dispatch<SiteAction>): Promise<void> {
-    const sourceFile = './content/content.json';
+    const sourceFile = '/content/content.json';
     return fetch(sourceFile)
     .then((response) => response.json())
-    .then((site) => dispatch(setSiteContent(site as SiteMetadata)));
+    .then((site) => dispatch(setSiteContent(site as SiteMetadata)))
+    .catch(err => console.log(`Error fetching content: ${err}`));
 }
 
 /**

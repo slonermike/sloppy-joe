@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import SectionSelector from './SectionSelector';
+import { Link } from 'react-router-dom';
 
 export interface SectionProps {
     name: string,
@@ -12,18 +11,16 @@ export interface SectionListValues {
 }
 
 export interface SectionListDispatch {
-    selectSection: (id: string) => void;
 }
 
 export type SectionListProps = SectionListValues & SectionListDispatch;
 
-function SectionList({ sections, selectSection }: SectionListProps) {
+function SectionList({ sections }: SectionListProps) {
     return (
         <div className="section-list">
             {
                 sections.map((section: SectionProps) => {
-                    const selectThisSection = () => selectSection(section.keyName);
-                    return <SectionSelector key={section.keyName} name={section.name} selectSection={selectThisSection} />
+                    return <Link key={section.keyName} to={`/section/${section.keyName}`}>{section.name}</Link>
                 })
             }
         </div>

@@ -6,14 +6,15 @@ import { StoreState } from './types';
 import { siteReducer } from './reducers';
 
 import { Provider } from 'react-redux';
-import { SiteAction, fetchContent } from './actions';
+import { SiteAction, fetchContent, selectSection } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 import TagList from './containers/TagList';
 import SectionList from './containers/SectionList';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const initialState: StoreState = {
-    siteTitle: 'Site Title',
+    siteTitle: '',
     articles: {},
     sections: {},
     articleOrder: [],
@@ -24,15 +25,35 @@ const initialState: StoreState = {
     defaultSection: ''
 }
 
-const store: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
-fetchContent(store.getState, store.dispatch);
+let centralStore: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
+fetchContent(centralStore.getState, centralStore.dispatch);
 
-ReactDOM.render(
-    <Provider store={store}>
+function fetchContentUnlessPresent(): Promise<void> {
+    return new Promise((resolve, _reject) => {
+        if (centralStore.getState().siteTitle) {
+            resolve();
+        } else {
+            fetchContent(centralStore.getState, centralStore.dispatch)
+                .then(() => resolve());
+        }
+    });
+}
+
+function renderPage(sectionId?: string): JSX.Element {
+    fetchContentUnlessPresent()
+        .then(() => sectionId && centralStore.dispatch(selectSection(sectionId)));
+    return <Provider store={centralStore}>
         <SiteHeader />
         <SectionList />
         <TagList />
         <Blog />
-    </Provider>,
+    </Provider>
+}
+
+ReactDOM.render(
+    <Router>
+        <Route path="/" exact={true} render={() => renderPage()} />
+        <Route path="/section/:sectionId" render={({ match }) => renderPage(match.params.sectionId)} />
+    </Router>,
     document.getElementById('root') as HTMLElement
 )

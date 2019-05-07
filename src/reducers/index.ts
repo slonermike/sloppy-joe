@@ -2,7 +2,7 @@ import { SiteAction } from '../actions';
 import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
 import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS } from '../constants';
 
-const ARTICLE_FOLDER = './content/';
+const ARTICLE_FOLDER = '/content/';
 
 function getArticle(state: StoreState, id: string): ArticleState | null {
     return state.articles[id] || null;
@@ -63,6 +63,7 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 newState.defaultSection = newState.defaultSection || key;
             });
 
+            newState.siteTitle = data.siteTitle;
             newState.siteCss = data.css.map(url => `${ARTICLE_FOLDER}${url}`);
 
             newState.siteDivs = data.divs.reduce<Record<string, string | null>>((acc, url) => {
