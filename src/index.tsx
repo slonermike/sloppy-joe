@@ -6,7 +6,7 @@ import { StoreState } from './types';
 import { siteReducer } from './reducers';
 
 import { Provider } from 'react-redux';
-import { SiteAction, fetchContent, selectSection } from './actions';
+import { SiteAction, fetchContent, selectSection, focusArticle } from './actions';
 import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 import TagList from './containers/TagList';
@@ -23,7 +23,13 @@ const initialState: StoreState = {
     siteCss: [],
     focusedTag: null,
     selectedSection: null,
+    focusedArticle: null,
     defaultSection: ''
+}
+
+interface RouteParams {
+    sectionId?: string;
+    articleId?: string;
 }
 
 let centralStore: Store<StoreState, SiteAction> = createStore<StoreState, SiteAction, any, any>(siteReducer, initialState);
@@ -40,9 +46,11 @@ function fetchContentUnlessPresent(): Promise<void> {
     });
 }
 
-function renderPage(sectionId?: string): JSX.Element {
+function renderPage(params: RouteParams = {}): JSX.Element {
+    const { sectionId, articleId } = params;
     fetchContentUnlessPresent()
-        .then(() => sectionId && centralStore.dispatch(selectSection(sectionId)));
+        .then(() => sectionId && centralStore.dispatch(selectSection(sectionId)))
+        .then(() => centralStore.dispatch(focusArticle(articleId || null)))
     return <Provider store={centralStore}>
         <SiteHeader />
         <SectionList />
@@ -54,7 +62,8 @@ function renderPage(sectionId?: string): JSX.Element {
 ReactDOM.render(
     <Router>
         <Route path="/" exact={true} render={() => renderPage()} />
-        <Route path="/section/:sectionId" render={({ match }) => renderPage(match.params.sectionId)} />
+        <Route path="/article/:articleId" render={({ match }) => renderPage(match.params)} />
+        <Route path="/section/:sectionId" render={({ match }) => renderPage(match.params)} />
     </Router>,
     document.getElementById('root') as HTMLElement
 )

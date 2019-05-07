@@ -69,6 +69,9 @@ export interface StoreState {
     // Currently-selected section (null to show default section)
     selectedSection: string | null;
 
+    // Currently-selected article (null to show section)
+    focusedArticle: string | null;
+
     // Section to show when none is selected.
     defaultSection: string;
 

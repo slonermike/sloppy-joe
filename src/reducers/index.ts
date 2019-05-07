@@ -1,6 +1,6 @@
 import { SiteAction } from '../actions';
 import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
-import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS } from '../constants';
+import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS, FOCUS_ARTICLE } from '../constants';
 
 const ARTICLE_FOLDER = '/content/';
 
@@ -89,6 +89,16 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
             };
 
             return newState;
+        }
+        case FOCUS_ARTICLE: {
+            if (action.id && !state.articles[action.id]) {
+                console.log(`Error: No article with id \'${action.id}\'`);
+                action.id = null;
+            }
+            return {
+                ...state,
+                focusedArticle: action.id
+            };
         }
         case EXPAND_ARTICLE: {
             const newState = {

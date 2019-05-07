@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import './Article.scss';
+import { Link } from 'react-router-dom';
 
 export interface ArticleValues {
     id: string;
@@ -34,7 +35,7 @@ class Article extends React.Component<ArticleProps> {
 
         const nodes = (
             <div className="article">
-                <div className="title">{ title }</div>
+                <Link className="title" to={`/article/${id}`}>{ title }</Link>
                 <div className="date">{ date.toLocaleDateString("en-US", {
                     year: 'numeric',
                     month: 'long',

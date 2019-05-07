@@ -9,7 +9,8 @@ export type SiteAction = ExpandArticle |
                          UpdateSite |
                          SelectSection |
                          ApplySiteLevelHtml |
-                         ApplySiteLevelCss;
+                         ApplySiteLevelCss |
+                         FocusArticle;
 /**
  * Filter content to only include stuff associated with the specified tag.
  * @param tag Name of the tag to filter to. Null to clear focus.
@@ -98,6 +99,17 @@ export function selectSection(id: string): SelectSection {
 export interface SelectSection {
     type: constants.SELECT_SECTION,
     id: string
+};
+
+export function focusArticle(id: string | null): FocusArticle {
+    return {
+        type: constants.FOCUS_ARTICLE,
+        id
+    };
+}
+export interface FocusArticle {
+    type: constants.FOCUS_ARTICLE,
+    id: string | null
 };
 
 export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: string): Promise<void> {
