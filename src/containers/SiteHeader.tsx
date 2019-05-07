@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { fetchDiv, SiteAction } from 'src/actions';
 
-export function mapStateToProps( { siteTitle, siteDivs, siteCss }: StoreState): SiteHeaderData {
+export function mapStateToProps( state: StoreState): SiteHeaderData {
+    const { siteTitle, siteDivs, siteCss } = state;
+    const selectedSection = state.sections[state.selectedSection || state.defaultSection];
+    const sectionTitle = selectedSection ? selectedSection.title : null;
+
     return {
         siteTitle,
+        sectionTitle,
         siteDivs,
         siteCss
     };

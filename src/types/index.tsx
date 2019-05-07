@@ -22,6 +22,7 @@ export interface SectionMetadata {
  * Site metadata as it comes down from the raw JSON.
  */
 export interface SiteMetadata {
+    siteTitle: string;
     sections: Record<string, SectionMetadata>;
     entries: Record<string, ArticleMetadata>;
     divs: string[];
@@ -47,6 +48,9 @@ export interface SectionState {
 }
 
 export interface StoreState {
+    /** True if the initial response has come back. */
+    hasPopulated: boolean;
+
     // Raw article data indexed by ID.
     articles: Record<string, ArticleState>;
 
@@ -64,6 +68,9 @@ export interface StoreState {
 
     // Currently-selected section (null to show default section)
     selectedSection: string | null;
+
+    // Currently-selected article (null to show section)
+    focusedArticle: string | null;
 
     // Section to show when none is selected.
     defaultSection: string;

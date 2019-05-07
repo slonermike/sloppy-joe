@@ -1,9 +1,11 @@
 import * as React from 'react';
 
 import './Article.scss';
+import { Link } from 'react-router-dom';
 
 export interface ArticleValues {
     id: string;
+    sectionId: string;
     key: string;
     title: string;
     content?: string;
@@ -28,13 +30,13 @@ class Article extends React.Component<ArticleProps> {
     }
 
     public render() {
-        const {id, expandArticle, title, content, expanded, date} = this.props;
+        const {id, sectionId, expandArticle, title, content, expanded, date} = this.props;
         const contentStyles = ['content'];
         expanded && contentStyles.push('expanded');
 
         const nodes = (
             <div className="article">
-                <div className="title">{ title }</div>
+                <Link className="title" to={`/section/${sectionId}/${id}`}>{ title }</Link>
                 <div className="date">{ date.toLocaleDateString("en-US", {
                     year: 'numeric',
                     month: 'long',

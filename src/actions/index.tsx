@@ -9,7 +9,8 @@ export type SiteAction = ExpandArticle |
                          UpdateSite |
                          SelectSection |
                          ApplySiteLevelHtml |
-                         ApplySiteLevelCss;
+                         ApplySiteLevelCss |
+                         FocusArticle;
 /**
  * Filter content to only include stuff associated with the specified tag.
  * @param tag Name of the tag to filter to. Null to clear focus.
@@ -100,6 +101,17 @@ export interface SelectSection {
     id: string
 };
 
+export function focusArticle(id: string | null): FocusArticle {
+    return {
+        type: constants.FOCUS_ARTICLE,
+        id
+    };
+}
+export interface FocusArticle {
+    type: constants.FOCUS_ARTICLE,
+    id: string | null
+};
+
 export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: string): Promise<void> {
     // TODO: set article in loading state.
     return fetch(url)
@@ -116,10 +128,11 @@ export function fetchDiv(dispatch: Dispatch<SiteAction>, url: string): Promise<v
 }
 
 export function fetchContent(getState: () => StoreState, dispatch: Dispatch<SiteAction>): Promise<void> {
-    const sourceFile = './content/content.json';
+    const sourceFile = '/content/content.json';
     return fetch(sourceFile)
     .then((response) => response.json())
-    .then((site) => dispatch(setSiteContent(site as SiteMetadata)));
+    .then((site) => dispatch(setSiteContent(site as SiteMetadata)))
+    .catch(err => console.log(`Error fetching content: ${err}`));
 }
 
 /**

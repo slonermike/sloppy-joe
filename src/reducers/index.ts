@@ -1,8 +1,8 @@
 import { SiteAction } from '../actions';
 import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
-import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS } from '../constants';
+import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS, FOCUS_ARTICLE } from '../constants';
 
-const ARTICLE_FOLDER = './content/';
+const ARTICLE_FOLDER = '/content/';
 
 function getArticle(state: StoreState, id: string): ArticleState | null {
     return state.articles[id] || null;
@@ -63,12 +63,15 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 newState.defaultSection = newState.defaultSection || key;
             });
 
+            newState.siteTitle = data.siteTitle;
             newState.siteCss = data.css.map(url => `${ARTICLE_FOLDER}${url}`);
 
             newState.siteDivs = data.divs.reduce<Record<string, string | null>>((acc, url) => {
                 acc[`${ARTICLE_FOLDER}${url}`] = null;
                 return acc;
             }, {} as Record<string, string | null>);
+
+            newState.hasPopulated = true;
 
             return newState;
         }
@@ -86,6 +89,16 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
             };
 
             return newState;
+        }
+        case FOCUS_ARTICLE: {
+            if (action.id && !state.articles[action.id]) {
+                console.log(`Error: No article with id \'${action.id}\'`);
+                action.id = null;
+            }
+            return {
+                ...state,
+                focusedArticle: action.id
+            };
         }
         case EXPAND_ARTICLE: {
             const newState = {

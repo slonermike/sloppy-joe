@@ -7,11 +7,13 @@ import { expandArticle, SiteAction, fetchArticle } from 'src/actions';
 
 export function mapStateToProps(state: StoreState, ownProps: {id: string}): ArticleValues {
     const articleState = state.articles[ownProps.id];
+    const sectionId = state.selectedSection || state.defaultSection;
 
     if ( articleState ) {
         const { file, id, title, content, expanded, date } = articleState;
         return {
             id,
+            sectionId,
             title,
             date,
             content,
@@ -24,6 +26,7 @@ export function mapStateToProps(state: StoreState, ownProps: {id: string}): Arti
             url: null,
             id: ownProps.id,
             key: ownProps.id,
+            sectionId,
             title: 'Error',
             date: new Date(),
             content: `Unable to load content: ${ownProps.id}`,

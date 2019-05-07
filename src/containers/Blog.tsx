@@ -17,9 +17,16 @@ function filterArticles(state: StoreState, section: SectionState): string[] {
 
 export function mapStateToProps(state: StoreState): BlogValueProps {
     const sectionId = state.selectedSection || state.defaultSection;
-    const section = state.sections[sectionId];
+    const articleId = state.focusedArticle;
 
-    if (section) {
+    if (articleId) {
+        const article = state.articles[articleId];
+        return {
+            title: article.title,
+            articles: [articleId]
+        }
+    } else if (sectionId) {
+        const section = state.sections[sectionId];
         return {
             title: section.title,
             articles: filterArticles(state, section)

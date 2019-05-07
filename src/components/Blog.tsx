@@ -12,10 +12,6 @@ export interface BlogDispatchProps {
 export type BlogProps = BlogValueProps & BlogDispatchProps;
 
 class Blog extends React.Component<BlogProps> {
-    public componentDidUpdate() {
-        document.title = this.props.title;
-    }
-
     public render() {
         return (
             <div className="blog">

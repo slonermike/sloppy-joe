@@ -18,3 +18,6 @@ export type FOCUS_TAG = typeof FOCUS_TAG;
 
 export const SELECT_SECTION = 'SELECT_SECTION';
 export type SELECT_SECTION = typeof SELECT_SECTION;
+
+export const FOCUS_ARTICLE = 'FOCUS_ARTICLE';
+export type FOCUS_ARTICLE = typeof FOCUS_ARTICLE;

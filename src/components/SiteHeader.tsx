@@ -4,6 +4,7 @@ import './SiteHeader.scss';
 
 export interface SiteHeaderData {
     siteTitle: string;
+    sectionTitle: string | null;
     siteDivs: Record<string, string | null>;
     siteCss: string[];
 }
@@ -21,6 +22,12 @@ class SiteHeader extends React.Component<SiteHeaderProps> {
                 this.props.loadCustomHTML(file);
             }
         });
+
+        if (this.props.sectionTitle) {
+            document.title = `${this.props.siteTitle} - ${this.props.sectionTitle}`;
+        } else {
+            document.title = this.props.siteTitle;
+        }
     }
 
     public render() {
