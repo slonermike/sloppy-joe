@@ -12,7 +12,6 @@
 
 # Possible Improvements
 - Implement async stuff w/ redux-thunk
-- Ability to deeplink directly to a section or article -- Routes? Query string variables?
 
 # Challenges Ahead
 - How do we handle images?
@@ -33,6 +32,7 @@ Splitting the site into multiple sections.
 - Site now is split into multiple sections (blogs) which each have their own content.
 - Choosing a section filters to the content in that section.
 - Site title will reflect the selected section.
+- Sections and articles can be focused with routes.
 
 ## v0.1.0
 First release.

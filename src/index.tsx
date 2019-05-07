@@ -46,24 +46,25 @@ function fetchContentUnlessPresent(): Promise<void> {
     });
 }
 
-function renderPage(params: RouteParams = {}): JSX.Element {
+function renderPage(params: RouteParams = {}) {
     const { sectionId, articleId } = params;
     fetchContentUnlessPresent()
         .then(() => sectionId && centralStore.dispatch(selectSection(sectionId)))
         .then(() => centralStore.dispatch(focusArticle(articleId || null)))
-    return <Provider store={centralStore}>
-        <SiteHeader />
-        <SectionList />
-        <TagList />
-        <Blog />
-    </Provider>
+    return <div />
 }
 
 ReactDOM.render(
-    <Router>
-        <Route path="/" exact={true} render={() => renderPage()} />
-        <Route path="/article/:articleId" render={({ match }) => renderPage(match.params)} />
-        <Route path="/section/:sectionId" render={({ match }) => renderPage(match.params)} />
-    </Router>,
+    <Provider store={centralStore}>
+        <Router>
+            <SiteHeader />
+            <SectionList />
+            <TagList />
+            <Blog />
+            <Route exact={true} path="/" render={() => renderPage()} />
+            <Route exact={true} path="/section/:sectionId" render={({ match }) => renderPage(match.params)} />
+            <Route exact={true} path="/section/:sectionId/:articleId" render={({ match }) => renderPage(match.params)} />
+        </Router>
+    </Provider>,
     document.getElementById('root') as HTMLElement
 )
