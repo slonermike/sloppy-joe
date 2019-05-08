@@ -6,7 +6,7 @@ import SectionList, { SectionListValues, SectionListDispatch } from 'src/compone
 
 export function mapStateToProps(state: StoreState): SectionListValues {
     return {
-        sections: Object.keys(state.sections).map((sectionName) => {
+        sections: state.sectionOrder.map((sectionName) => {
             const section = state.sections[sectionName];
             return {
                 name: section.title,

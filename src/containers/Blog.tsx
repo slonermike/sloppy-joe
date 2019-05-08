@@ -16,7 +16,7 @@ function filterArticles(state: StoreState, section: SectionState): string[] {
 }
 
 export function mapStateToProps(state: StoreState): BlogValueProps {
-    const sectionId = state.selectedSection || state.defaultSection;
+    const sectionId = state.selectedSection || state.sectionOrder[0];
     const articleId = state.focusedArticle;
 
     if (articleId) {

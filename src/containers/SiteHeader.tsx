@@ -6,7 +6,7 @@ import { fetchDiv, SiteAction } from 'src/actions';
 
 export function mapStateToProps( state: StoreState): SiteHeaderData {
     const { siteTitle, siteDivs, siteCss } = state;
-    const selectedSection = state.sections[state.selectedSection || state.defaultSection];
+    const selectedSection = state.sections[state.selectedSection || state.sectionOrder[0]];
     const sectionTitle = selectedSection ? selectedSection.title : null;
 
     return {
