@@ -11,7 +11,7 @@ import SiteHeader from './containers/SiteHeader';
 import Blog from './containers/Blog';
 import TagList from './containers/TagList';
 import SectionList from './containers/SectionList';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 const initialState: StoreState = {
     hasPopulated: false,

@@ -1,14 +1,14 @@
 # Planned Improvements
-- Dynamically load CSS as a theme (perhaps specified in lunchlady).
-  - https://stackoverflow.com/questions/28386125/dynamically-load-a-stylesheet-with-react
 - Automatically page in articles as you scroll. (infinite scrolling)
 - Break out reducers via `combineReducers`
-- Custom header, footer HTML.  Remove generic site header.
-  - Maybe there can be a generic `global` tag where that HTML block is applied to every page, always.
 - Mark out space for unloaded article so visibility of all items can be calculated before anything loads.
 - Linting
-- Ability to have multiple tags toggled on.
-- Indicate which tags are toggled.
+- Flesh out tag functionality.
+- Directly-linked articles should start out expanded.
+- Scroll to article top when linking directly to it and scrolled below it.
+- Use article title in document title when directly linked.
+- Set up themes folder in which a user can select an entire folder full of html and css to add, rather than piecemeal.
+  - Include a default theme, `/public/themes/default` and exclude other theme folders from git.
 
 # Possible Improvements
 - Implement async stuff w/ redux-thunk
