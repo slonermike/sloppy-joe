@@ -58,11 +58,9 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
             Object.keys(data.sections).forEach((key) => {
                 const section = data.sections[key];
                 addSection(newState, section, data.entries);
-
-                // TODO: actually have some meaningful order to the default section.
-                newState.defaultSection = newState.defaultSection || key;
             });
 
+            newState.sectionOrder = data.sectionOrder;
             newState.siteTitle = data.siteTitle;
             newState.siteCss = data.css.map(url => `${ARTICLE_FOLDER}${url}`);
 

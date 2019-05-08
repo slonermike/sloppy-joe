@@ -24,6 +24,7 @@ export interface SectionMetadata {
 export interface SiteMetadata {
     siteTitle: string;
     sections: Record<string, SectionMetadata>;
+    sectionOrder: string[];
     entries: Record<string, ArticleMetadata>;
     divs: string[];
     css: string[];
@@ -51,11 +52,14 @@ export interface StoreState {
     /** True if the initial response has come back. */
     hasPopulated: boolean;
 
-    // Raw article data indexed by ID.
-    articles: Record<string, ArticleState>;
-
     // A section containing articles.
     sections: Record<string, SectionState>;
+
+    // Order in which the sections appear on the site (by id).
+    sectionOrder: string[];
+
+    // Raw article data indexed by ID.
+    articles: Record<string, ArticleState>;
 
     // List of article IDs in order as they should appear.
     articleOrder: string[];
@@ -71,9 +75,6 @@ export interface StoreState {
 
     // Currently-selected article (null to show section)
     focusedArticle: string | null;
-
-    // Section to show when none is selected.
-    defaultSection: string;
 
     // Divs to show at the top level, indexed by url, with html as the data.
     siteDivs: Record<string, string | null>;

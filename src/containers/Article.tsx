@@ -7,7 +7,7 @@ import { expandArticle, SiteAction, fetchArticle } from 'src/actions';
 
 export function mapStateToProps(state: StoreState, ownProps: {id: string}): ArticleValues {
     const articleState = state.articles[ownProps.id];
-    const sectionId = state.selectedSection || state.defaultSection;
+    const sectionId = state.selectedSection || state.sectionOrder[0];
 
     if ( articleState ) {
         const { file, id, title, content, expanded, date } = articleState;

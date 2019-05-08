@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { SiteAction, focusTag } from 'src/actions';
 
 export function mapStateToProps(state: StoreState): TagListValueProps {
-    const visibleSection = state.sections[state.selectedSection || state.defaultSection];
+    const visibleSection = state.sections[state.selectedSection || state.sectionOrder[0]];
     const tags = visibleSection ? Object.keys(visibleSection.tags).map((tagName) => {
         return {
             name: tagName,

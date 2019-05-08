@@ -16,15 +16,15 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 const initialState: StoreState = {
     hasPopulated: false,
     siteTitle: '',
-    articles: {},
     sections: {},
+    sectionOrder: [],
+    articles: {},
     articleOrder: [],
     siteDivs: {},
     siteCss: [],
     focusedTag: null,
     selectedSection: null,
-    focusedArticle: null,
-    defaultSection: ''
+    focusedArticle: null
 }
 
 interface RouteParams {
