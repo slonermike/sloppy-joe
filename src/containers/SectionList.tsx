@@ -8,10 +8,11 @@ export function mapStateToProps(state: StoreState): SectionListValues {
     return {
         sections: state.sectionOrder.map((sectionName) => {
             const section = state.sections[sectionName];
+            const selectedSection = state.selectedSection || state.sectionOrder[0];
             return {
                 name: section.title,
                 keyName: section.id,
-                isCurrentSection: section.id === state.selectedSection
+                isCurrentSection: section.id === selectedSection
             };
         })
     };
