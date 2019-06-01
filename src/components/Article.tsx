@@ -36,14 +36,17 @@ class Article extends React.Component<ArticleProps> {
 
         const nodes = (
             <div className="article">
-                <Link className="title" to={`/section/${sectionId}/${id}`}>{ title }</Link>
-                <div className="date">{ date.toLocaleDateString("en-US", {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }) }</div>
+                <div className="article-head">
+                    <div className="article-head-bg"></div>
+                    <Link className="title" to={`/section/${sectionId}/${id}`}>{ title }</Link>
+                    <div className="date">{ date.toLocaleDateString("en-US", {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }) }</div>
+                </div>
                 { content && <div className={contentStyles.join(' ')} dangerouslySetInnerHTML={{ __html: content }}></div> }
-                { content && !expanded && <button className="expand" onClick={() => expandArticle(id)}>Expand</button> }
+                { content && !expanded && <div className="expand-container"><Link to="#" className="expand" onClick={() => expandArticle(id)}>Read More</Link></div> }
             </div>
         );
 

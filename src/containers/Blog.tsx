@@ -23,18 +23,21 @@ export function mapStateToProps(state: StoreState): BlogValueProps {
         const article = state.articles[articleId];
         return {
             title: article.title,
-            articles: [articleId]
+            articles: [articleId],
+            sectionId: state.selectedSection
         }
     } else if (sectionId) {
         const section = state.sections[sectionId];
         return {
             title: section.title,
-            articles: filterArticles(state, section)
+            articles: filterArticles(state, section),
+            sectionId
         };
     } else {
         return {
             title: '',
-            articles: []
+            articles: [],
+            sectionId: null
         }
     }
 }
