@@ -12,7 +12,7 @@ Sloppy Joe is a blog front-end which relies on static data output by its counter
 ## What's wrong with you?  Why would you do this?
 One question at a time please!  First, I'm a weird person and constraints make personal projects far more compelling.
 
-Second question, a few years ago I picked up some super-cheap web hosting for like $20/year, which I prepaid years in advance.  Unfortunately, this web server only supports PHP backends, as they seem to expect literally everyone to use Wordpress.  Wordpress is bloated and PHP is the devil, and I was looking for an excuse to learn Nodejs.
+Second question, a few years ago I picked up some super-cheap web hosting for like $20/year, which I prepaid years in advance.  Unfortunately, this web server only supports PHP backends, as they seem to expect literally everyone to use Wordpress.  I found Wordpress to be clunky for doing anything custom, I am no longer interested in writing PHP, and I was looking for an excuse to learn Nodejs.
 
 Most blog software is WAY overengineered for what I need.  I don't want people to leave comments.  I don't need a WYSIWYG editor.  I just need the ability to write something and put it on the internet.  That hardly necessitates a backend.  Hence, Lunchlady and her Sloppy Joe counterpart.
 
