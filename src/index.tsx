@@ -59,8 +59,8 @@ ReactDOM.render(
         <Router>
             <SiteHeader />
             <SectionList />
-            <TagList />
             <Blog />
+            <TagList />
             <Route exact={true} path="/" render={() => renderPage()} />
             <Route exact={true} path="/section/:sectionId" render={({ match }) => renderPage(match.params)} />
             <Route exact={true} path="/section/:sectionId/:articleId" render={({ match }) => renderPage(match.params)} />

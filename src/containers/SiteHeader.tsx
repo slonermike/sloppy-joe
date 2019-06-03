@@ -9,12 +9,14 @@ export function mapStateToProps( state: StoreState): SiteHeaderData {
     const selectedSection = state.sections[state.selectedSection || state.sectionOrder[0]];
     const sectionTitle = selectedSection ? selectedSection.title : null;
 
-    return {
+    const headerData: SiteHeaderData = {
         siteTitle,
         sectionTitle,
-        siteDivs,
+        headerDivs: {...(siteDivs['headers'])} || {},
         siteCss
     };
+
+    return headerData;
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<SiteAction>): SiteHeaderActions {

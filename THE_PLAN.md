@@ -22,6 +22,7 @@
 
 # Known Issues
 - In the render for TagList, the 'All' filter uses 'all' as its key.  There is a risk of key collision here.
+- Why does it request the header file multiple times?
 
 # Releases
 

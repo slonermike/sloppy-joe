@@ -26,7 +26,7 @@ export interface SiteMetadata {
     sections: Record<string, SectionMetadata>;
     sectionOrder: string[];
     entries: Record<string, ArticleMetadata>;
-    divs: string[];
+    divs: Record<string, string[]>;
     css: string[];
 }
 
@@ -47,6 +47,9 @@ export interface SectionState {
     // Subsets of ordered article IDs, indexed by tag.
     tags: Record<string, string[]>;
 }
+
+// Indexed by filename, with contents of the div as the value.
+export type SiteDiv = Record<string, string | null>;
 
 export interface StoreState {
     /** True if the initial response has come back. */
@@ -76,8 +79,8 @@ export interface StoreState {
     // Currently-selected article (null to show section)
     focusedArticle: string | null;
 
-    // Divs to show at the top level, indexed by url, with html as the data.
-    siteDivs: Record<string, string | null>;
+    // Divs to show at the top level, indexed by category (such as `header`)
+    siteDivs: Record<string, SiteDiv>;
 
     // CSS files to apply at the top level.
     siteCss: string[];

@@ -1,0 +1,143 @@
+
+.root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+a, a:visited {
+    color: #006492;
+}
+
+a:hover {
+    color: #008bcc;
+}
+
+.header {
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.site-title {
+    font-size: 3em;
+    font-family: Helvetica, Arial, sans-serif;
+    margin-top: 80px;
+    margin-left: 10%;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.section-list {
+    width: 80%;
+    max-width: 900px;
+    margin: 180px auto 0;
+    padding: 16px 16px 0;
+    line-height: 40px;
+}
+
+.section-link {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.section-link a:hover {
+    text-decoration: underline;
+}
+
+.section-link.selected {
+    font-weight: bold;
+}
+
+.blog {
+    margin-top: 20px;
+}
+
+.article {
+    background-color: white;
+    color: #666666;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.content, .article-head .title, .article-head .date {
+    position: relative;
+    display: block;
+    width: 80%;
+    max-width: 900px;
+    padding: 24px 10% 12px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.expand-container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 60px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.expand-container::before {
+    content: "";
+    background-color: black;
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 70%);
+    mask-image: linear-gradient(to bottom, black 10%, #000000cc 70%);
+}
+
+.expand-container a, .expand-container a:visited {
+    text-decoration: none;
+}
+
+.article-head {
+    background: linear-gradient(to right, #c3ecff 0%,#ffffff 66%);
+}
+
+.article-head::before, .article-head::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 5px;
+    left: 0;
+    background: linear-gradient(to right, #006492 33%,#000000 66%);
+}
+
+.article .title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.article .content {
+    font-size: 18px;
+    overflow: hidden;
+    padding-bottom: 120px;
+}
+
+.article .content:not(.expanded) {
+    height: 200px;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.article .expand {
+    font-weight: bold;
+}
+
+.tag-list {
+    width: 80%;
+    padding: 100px 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .site-title {
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .site-title {
+        font-size: 2.0em;
+    }
+}

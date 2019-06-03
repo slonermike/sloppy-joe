@@ -22,3 +22,7 @@ yarn-error.log*
 
 # lunchlady content
 /public/content
+
+# Themes
+/public/themes/*
+!/public/themes/default/
