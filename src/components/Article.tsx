@@ -46,6 +46,7 @@ class Article extends React.Component<ArticleProps> {
                 </div>
                 { content && <div className={contentStyles.join(' ')} dangerouslySetInnerHTML={{ __html: content }}></div> }
                 { content && !expanded && <div className="expand-container"><Link to="#" className="expand" onClick={() => expandArticle(id)}>Read More</Link></div> }
+                <div className="article-foot" />
             </div>
         );
 
