@@ -3,6 +3,7 @@ import * as React from 'react';
 export interface SiteHeaderData {
     siteTitle: string;
     sectionTitle: string | null;
+    articleTitle: string | null;
     headerDivs: Record<string, string | null>;
     siteCss: string[];
 }
@@ -21,7 +22,9 @@ class SiteHeader extends React.Component<SiteHeaderProps> {
             }
         });
 
-        if (this.props.sectionTitle) {
+        if (this.props.articleTitle) {
+            document.title = `${this.props.siteTitle} - ${this.props.articleTitle}`;
+        } else if (this.props.sectionTitle) {
             document.title = `${this.props.siteTitle} - ${this.props.sectionTitle}`;
         } else {
             document.title = this.props.siteTitle;

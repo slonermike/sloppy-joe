@@ -23,12 +23,12 @@
 # Known Issues
 - In the render for TagList, the 'All' filter uses 'all' as its key.  There is a risk of key collision here.
 - Why does it request the header file multiple times?
-- Article title should display in the document title.
 
 # Releases
 
 ## v0.3.0
 - Remove dompurify & sanitize, as this is all read-only, static and therefore sanitizing is not necessary.  Prevents YouTube videos, custom scripts, etc.
+- Article title displays in the document title.
 
 ## v0.2.0
 Splitting the site into multiple sections.
