@@ -1,7 +1,6 @@
 import * as constants from '../constants';
 import { StoreState, SiteMetadata } from 'src/types';
 import { Dispatch } from 'react';
-import { sanitize } from 'dompurify';
 
 export type SiteAction = ExpandArticle |
                          UpdateArticleContent |
@@ -116,14 +115,12 @@ export function fetchArticle(dispatch: Dispatch<SiteAction>, id: string, url: st
     // TODO: set article in loading state.
     return fetch(url)
         .then((response) => response.text())
-        .then((text) => sanitize(text))
         .then((text) => dispatch(updateArticleContent(id, text)));
 }
 
 export function fetchDiv(dispatch: Dispatch<SiteAction>, url: string): Promise<void> {
     return fetch(url)
         .then((response) => response.text())
-        .then((html) => sanitize(html))
         .then((text) => dispatch(applySiteLevelHtml(url, text)));
 }
 
