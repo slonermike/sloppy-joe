@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import './SiteHeader.scss';
-
 export interface SiteHeaderData {
     siteTitle: string;
     sectionTitle: string | null;
-    siteDivs: Record<string, string | null>;
+    articleTitle: string | null;
+    headerDivs: Record<string, string | null>;
     siteCss: string[];
 }
 
@@ -17,13 +16,15 @@ export type SiteHeaderProps = SiteHeaderData & SiteHeaderActions;
 
 class SiteHeader extends React.Component<SiteHeaderProps> {
     public componentDidUpdate() {
-        Object.keys(this.props.siteDivs).forEach((file) => {
-            if (!this.props.siteDivs[file]) {
+        Object.keys(this.props.headerDivs).forEach((file) => {
+            if (!this.props.headerDivs[file]) {
                 this.props.loadCustomHTML(file);
             }
         });
 
-        if (this.props.sectionTitle) {
+        if (this.props.articleTitle) {
+            document.title = `${this.props.siteTitle} - ${this.props.articleTitle}`;
+        } else if (this.props.sectionTitle) {
             document.title = `${this.props.siteTitle} - ${this.props.sectionTitle}`;
         } else {
             document.title = this.props.siteTitle;
@@ -31,8 +32,8 @@ class SiteHeader extends React.Component<SiteHeaderProps> {
     }
 
     public render() {
-        const allCustomHTML = Object.keys(this.props.siteDivs).map((key) => {
-            return this.props.siteDivs[key];
+        const allCustomHTML = Object.keys(this.props.headerDivs).map((key) => {
+            return this.props.headerDivs[key];
         }).join('\n\n');
 
         return (

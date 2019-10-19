@@ -1,8 +1,9 @@
 import { SiteAction } from '../actions';
-import { StoreState, ArticleMetadata, ArticleState, SectionMetadata } from '../types';
+import { StoreState, ArticleMetadata, ArticleState, SectionMetadata, SiteDiv } from '../types';
 import { EXPAND_ARTICLE, UPDATE_ARTICLE_CONTENT, FOCUS_TAG, UPDATE_SITE, SELECT_SECTION, APPLY_SITE_LEVEL_HTML, APPLY_SITE_LEVEL_CSS, FOCUS_ARTICLE } from '../constants';
 
 const ARTICLE_FOLDER = '/content/';
+const THEME_FOLDER = '/themes/';
 
 function getArticle(state: StoreState, id: string): ArticleState | null {
     return state.articles[id] || null;
@@ -62,12 +63,17 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
 
             newState.sectionOrder = data.sectionOrder;
             newState.siteTitle = data.siteTitle;
-            newState.siteCss = data.css.map(url => `${ARTICLE_FOLDER}${url}`);
+            newState.siteCss = data.css.map(url => `${THEME_FOLDER}${url}`);
 
-            newState.siteDivs = data.divs.reduce<Record<string, string | null>>((acc, url) => {
-                acc[`${ARTICLE_FOLDER}${url}`] = null;
+            const divKeys = Object.keys(data.divs);
+            newState.siteDivs = divKeys.reduce<Record<string, SiteDiv>>((acc, category) => {
+                acc[category] = data.divs[category].reduce<SiteDiv>((divAcc, url) => {
+                    divAcc[`${THEME_FOLDER}${url}`] = null;
+                    return divAcc;
+                }, {} as SiteDiv);
+
                 return acc;
-            }, {} as Record<string, string | null>);
+            }, {} as Record<string, SiteDiv>);
 
             newState.hasPopulated = true;
 
@@ -140,7 +146,12 @@ export function siteReducer(state: StoreState, action: SiteAction): StoreState {
                 siteDivs: {...state.siteDivs}
             };
 
-            newState.siteDivs[action.url] = action.html;
+            // TODO: A little brute-forcey.  Can we get the category with the action?
+            Object.keys(newState.siteDivs).forEach(category => {
+                if (newState.siteDivs[category][action.url] !== undefined) {
+                    newState.siteDivs[category][action.url] = action.html;
+                }
+            });
 
             return newState;
         }

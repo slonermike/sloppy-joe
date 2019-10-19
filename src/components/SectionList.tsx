@@ -25,8 +25,8 @@ function SectionList({ sections }: SectionListProps) {
         <div className="section-list">
             {
                 sections.map((section: SectionProps) => {
-                    return  <div className={getClass(section)}>
-                                <Link key={section.keyName} to={`/section/${section.keyName}`}>{section.name}</Link>
+                    return  <div key={section.keyName} className={getClass(section)}>
+                                <Link to={`/section/${section.keyName}`}>{section.name}</Link>
                             </div>
                 })
             }
